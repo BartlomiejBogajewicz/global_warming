@@ -3,8 +3,7 @@ findspark.init()
 
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
-from operator import add
-
+import numpy as np 
 
 config = SparkConf().setAppName('temp_transformation').setMaster('local[*]')
 
