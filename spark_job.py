@@ -20,16 +20,14 @@ def farenheit_to_cel(temp : "temp_in_faren") -> "temp_in_cel":
 
 rdd = spark_csv.rdd
 
-#mean temp grouped by country, year
+#mean temp grouped by country, year with standard deviation
 #rows with temp = -99 are treated as errors in dataset so I filter them out
 
-rdd_mapped_temp = rdd.filter(lambda x: x[7] != '-99').map(lambda x: [' '.join([x[1],x[6]]),[farenheit_to_cel(x[7]),1]])
+rdd_mapped_temp = rdd.filter(lambda x: x[7] != '-99').map(lambda x: [' '.join([x[1],x[6]]),[farenheit_to_cel(x[7]),1]]).cache()
 
-rdd_agg_temp = rdd_sum_temp.reduceByKey(lambda a,b: [a[0]+b[0],a[1]+b[1]]).mapValues(lambda x: round(x[0]/x[1],2))
+rdd_mean_temp = rdd_mapped_temp.reduceByKey(lambda a,b: [a[0]+b[0],a[1]+b[1]]).mapValues(lambda x: round(x[0]/x[1],2))
 
-rdd_result = rdd_agg_temp.sortByKey().collect()
+rdd_std_temp = rdd_mapped_temp.map(lambda x: [x[0],x[1][0]]).groupByKey().mapValues(lambda x: round(np.std(np.array(list(x))),2))
 
-
-
-
+rdd_result = rdd_mean_temp.join(rdd_std_temp).sortByKey().map(lambda x:[x[0][:-5],x[0][-4:],x[1][0],x[1][1]]).collect()
 
