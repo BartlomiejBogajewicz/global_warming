@@ -12,4 +12,4 @@ Below I placed the plots of temperature and standard deviation:
 
 As you can see the temperature has risen in average by 1.5 degree. Other than that the standard deviation is changing which can
 impact the temperature variability. For instance the negative coefficient in Poland suggest that the number of 
-warmer days in winter will incrase over time. From the other side in Australia the positive deviation coefficient can cause the extreme heat waves in summer.
+warmer days in winter will incrase over time. From the other side in Australia the positive deviation coefficient can cause the incrase of extreme heat waves in summer.
