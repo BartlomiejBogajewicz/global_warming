@@ -25,6 +25,7 @@ for ax,country in zip(axs.ravel(),unique_countries):
     
 start, end = axs[0][0].get_xlim()
 axs[0][0].xaxis.set_ticks(np.arange(int(start+2), int(end), 2))
+fig.suptitle("Average Temperature")
 
 #plots of deviation
 fig1, axs1 = plt.subplots(2,2, sharex=True)
@@ -39,5 +40,6 @@ for ax,country in zip(axs1.ravel(),unique_countries):
     
 start, end = axs[0][0].get_xlim()
 axs1[0][0].xaxis.set_ticks(np.arange(int(start+2), int(end), 2))
+fig1.suptitle("Average Standard deviation")
 
 plt.show()
