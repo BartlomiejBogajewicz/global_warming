@@ -24,7 +24,8 @@ spark_temp = spark_temp.withColumn("AvgTemperature",spark_temp.AvgTemperature.ca
 spark_temp = spark_temp.where((col("AvgTemperature") != -99.0 ) & (col("Year") != 2020))\
                        .select("Country","Year",farenheit_to_cel(col("AvgTemperature")).alias("AvgTemperature"))
 
-spark_agg = spark_temp.groupBy("Country","Year").agg(round(mean("AvgTemperature"),2).alias("Average Temperature")                                                    ,round(stddev("AvgTemperature"),2).alias("Standard deviation"))
+spark_agg = spark_temp.groupBy("Country","Year").agg(round(mean("AvgTemperature"),2).alias("Average Temperature")\
+                                                    ,round(stddev("AvgTemperature"),2).alias("Standard deviation"))                                                 ,round(stddev("AvgTemperature"),2).alias("Standard deviation"))
 
 spark_agg.write.mode("overwrite").format("jdbc")\
                     .option("url",properites["url"])\
